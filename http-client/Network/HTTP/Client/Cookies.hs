@@ -177,7 +177,7 @@ computeCookieString request cookie_jar now is_http_api = (output_line, cookie_ja
                 condition2 = pathMatches (Req.path request) (cookie_path cookie)
                 condition3
                   | not (cookie_secure_only cookie) = True
-                  | otherwise = isPotentiallyTrustworthyOrigin (Req.secure request) (Req.host request)
+                  | otherwise = False
                 condition4
                   | not (cookie_http_only cookie) = True
                   | otherwise = is_http_api

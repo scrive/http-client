@@ -259,6 +259,7 @@ data HistoriedResponse body = HistoriedResponse
 -- Since 0.4.1
 responseOpenHistory :: Request -> Manager -> IO (HistoriedResponse BodyReader)
 responseOpenHistory reqOrig man0 = handle (throwIO . toHttpException reqOrig) $ do
+    putStrLn $ "OriginalRequest" <> show reqOrig
     reqRef <- newIORef reqOrig
     historyRef <- newIORef id
     let go req0 = do

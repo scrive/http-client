@@ -91,7 +91,10 @@ httpRaw' req0 m = do
     let req' = mSetProxy m req0
     (req, cookie_jar') <- case cookieJar req' of
         Just cj -> do
+            putStrLn $ "CookieJar original request" <> show cj
             now <- getCurrentTime
+            let cookieJarEvicted  = evictExpiredCookies cj now
+            putStrLn $ "CookieJar evicted" <> show cookieJarEvicted
             return $ insertCookiesIntoRequest req' (evictExpiredCookies cj now) now
         Nothing -> return (req', Data.Monoid.mempty)
     (timeout', mconn) <- getConnectionWrapper
